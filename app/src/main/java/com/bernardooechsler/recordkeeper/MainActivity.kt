@@ -34,28 +34,29 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 //        }
     }
 
-    private fun onRunningClicked() {
+    private fun onRunningClicked(): Boolean {
         supportFragmentManager.commit {
             replace(R.id.frame_content, RunningFragment())
         }
+        return true
     }
 
-    private fun onCyclingClicked() {
+    private fun onCyclingClicked(): Boolean {
         supportFragmentManager.commit {
             replace(R.id.frame_content, CyclingFragment())
         }
+        return true
     }
 
+    // We converted to Inline expression body type
     // This function will select which bottom nav item is clicked to be opened
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.nav_cycling) {
-            onCyclingClicked()
-            return true
-        } else if (item.itemId == R.id.nav_running) {
-            onRunningClicked()
-            return true
-        } else {
-            return false
-        }
+    // We don't need the return type for nav_cycling or/and nav_running because
+    // Their onRunningClicked()/onCyclingClicked() already has a return type of 'Boolean' (true/false)
+    override fun onNavigationItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.nav_cycling -> onCyclingClicked()
+//            true
+        R.id.nav_running -> onRunningClicked()
+//            true
+        else -> false
     }
 }
