@@ -2,14 +2,18 @@ package com.bernardooechsler.recordkeeper
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.commit
+import com.bernardooechsler.recordkeeper.cycling.CyclingFragment
 import com.bernardooechsler.recordkeeper.databinding.ActivityMainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.bernardooechsler.recordkeeper.running.RunningFragment
+import com.google.android.material.navigation.NavigationBarView.OnItemSelectedListener
 
-class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+// We were using 'OnNavigationItemSelectedListener' before, but it has been deprecated
+// After the ' , ', we are adding an interface
+class MainActivity : AppCompatActivity(), OnItemSelectedListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -17,9 +21,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(/* view = */ binding.root)
 
-        binding.bottomNav.setOnNavigationItemSelectedListener(this)
+        // We were using 'setOnNavigationItemSelectedListener' before, but now, it has been deprecated
+        binding.bottomNav.setOnItemSelectedListener(this)
 
 //        // We are creating an anonymous class using the keyword 'object'
 //        binding.buttonCycling.setOnClickListener(object : View.OnClickListener {
@@ -32,6 +37,33 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 //        binding.buttonRunning.setOnClickListener {
 //            onRunningClicked()
 //        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar, menu)
+        return true
+    }
+
+    // We converted the 'when' to expression body
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.reset_running -> {
+            Toast.makeText(this, "Clicked the Reset Running Records", Toast.LENGTH_LONG).show()
+            true
+        }
+
+        R.id.reset_cycling -> {
+            Toast.makeText(this, "Clicked the Reset Cycling Records", Toast.LENGTH_LONG).show()
+            true
+        }
+
+        R.id.reset_all -> {
+            Toast.makeText(this, "Clicked the Reset All Records", Toast.LENGTH_LONG).show()
+            true
+        }
+
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     private fun onRunningClicked(): Boolean {

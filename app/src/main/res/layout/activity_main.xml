@@ -8,7 +8,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/frame_content"
-        android:name="com.bernardooechsler.recordkeeper.RunningFragment"
+        android:name="com.bernardooechsler.recordkeeper.running.RunningFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"

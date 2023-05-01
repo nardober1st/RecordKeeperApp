@@ -1,4 +1,4 @@
-package com.bernardooechsler.recordkeeper
+package com.bernardooechsler.recordkeeper.cycling
 
 import android.content.Intent
 import android.os.Bundle
